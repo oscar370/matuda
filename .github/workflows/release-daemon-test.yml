@@ -1,6 +1,9 @@
 name: Release-Daemon-Test
 
 on:
+  push:
+    branches:
+      - migration-to-dioxus
   workflow_dispatch:
 
 permissions:
