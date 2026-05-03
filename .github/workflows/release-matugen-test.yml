@@ -3,7 +3,7 @@ name: Release-Matugen-Test
 on:
   push:
     branches:
-      - migration-to-dioxus
+      - migration
   workflow_dispatch:
 
 permissions:
