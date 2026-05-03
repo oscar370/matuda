@@ -1,17 +1,14 @@
-use clap::Parser;
 use serde::{Deserialize, Serialize};
+use specta::Type;
 use std::collections::HashMap;
-use ts_rs::TS;
 
-#[derive(Serialize, Deserialize, Debug, Clone, TS)]
-#[ts(export, export_to = "../../frontend/src/types/bindings.ts")]
+#[derive(Serialize, Deserialize, Debug, Clone, Type)]
 pub struct ConfigToml {
     pub app: AppConfig,
     pub templates: HashMap<String, TemplateConfig>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, TS)]
-#[ts(export, export_to = "../../frontend/src/types/bindings.ts")]
+#[derive(Serialize, Deserialize, Debug, Clone, Type)]
 pub struct AppConfig {
     pub color_schema: String,
     pub contrast: f64,
@@ -20,20 +17,10 @@ pub struct AppConfig {
     pub fallback_color: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, TS)]
-#[ts(export, export_to = "../../frontend/src/types/bindings.ts")]
+#[derive(Serialize, Deserialize, Debug, Clone, Type)]
 pub struct TemplateConfig {
     pub input_path: String,
     pub output_path: Option<String>,
     pub pre_hook: String,
     pub post_hook: String,
-}
-
-#[derive(Parser, Debug)]
-pub struct Args {
-    #[arg(long)]
-    pub config_path: String,
-
-    #[arg(long)]
-    pub matugen_path: String,
 }

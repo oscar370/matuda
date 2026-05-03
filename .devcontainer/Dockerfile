@@ -18,3 +18,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND=dialog
+ENV GTK_THEME=Adwaita:dark

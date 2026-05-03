@@ -23,3 +23,11 @@ serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
 tauri = { version = "2.11.0", features = [] }
 tauri-plugin-log = "2"
+thiserror = "2"
+shared = { path = "../../shared" }
+tokio = { version = "1.52.1", features = ["full"] }
+toml = "1.0.6"
+rust-ini = "0.21"
+specta = "2.0.0-rc.24"
+tauri-specta = { version = "2.0.0-rc.24", features = ["typescript"] }
+specta-typescript = "0.0.11"

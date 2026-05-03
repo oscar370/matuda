@@ -1,5 +1,6 @@
+use crate::models::args::Args;
 use clap::Parser;
-use shared::{Args, ConfigToml};
+use shared::ConfigToml;
 use std::error::Error;
 use std::fs;
 

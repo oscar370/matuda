@@ -1,8 +1,9 @@
 use crate::{
+    models::args::Args,
     services::matugen,
     utils::{images, paths},
 };
-use shared::{Args, ConfigToml};
+use shared::ConfigToml;
 use std::{error::Error, fs};
 
 pub fn process_new_wallpaper(

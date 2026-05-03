@@ -1,4 +1,5 @@
 mod core;
+mod models;
 mod services;
 mod utils;
 

@@ -1,4 +1,5 @@
-use shared::{Args, ConfigToml};
+use crate::models::args::Args;
+use shared::ConfigToml;
 use std::{error::Error, path::PathBuf, process::Command};
 
 pub fn generate_colors(
