@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-DAEMON_PATH="daemon/target/release/daemon"
+DAEMON_PATH="target/release/daemon"
 TARGET_DIR="dist"
 
 echo "[INFO] Starting daemon compilation"
