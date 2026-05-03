@@ -1,17 +1,26 @@
 mod core;
-mod models;
 mod services;
 mod utils;
 
+use std::sync::mpsc;
+use std::thread;
+
 fn main() {
-    utils::config::init_args();
-    let models::args::Args {
-        config_path,
-        matugen_path,
-    } = utils::config::get_args();
+    let args = utils::config::init_args();
+    let config = utils::config::get_config(&args.config_path).expect("Failed to parse config file");
 
-    println!("[INFO] Configuration path: {}", config_path);
-    println!("[INFO] Matugen path: {}", matugen_path);
+    println!("[INFO] Configuration path: {}", args.config_path);
+    println!("[INFO] Matugen path: {}", args.matugen_path);
 
-    services::watchers::watch_gnome_bg();
+    let (tx, rx) = mpsc::channel::<String>();
+
+    thread::spawn(move || {
+        services::watchers::gnome::watch_gnome_bg(tx);
+    });
+
+    for uri in rx {
+        if let Err(e) = core::processor::process_new_wallpaper(uri, &args, &config) {
+            eprintln!("[ERROR] Processor failed: {}", e);
+        }
+    }
 }

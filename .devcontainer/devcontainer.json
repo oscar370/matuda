@@ -2,10 +2,13 @@
   "name": "Debian",
   "build": { "dockerfile": "Dockerfile" },
   "features": {
-    "ghcr.io/devcontainers/features/rust:1": {}
+    "ghcr.io/devcontainers/features/rust:1": {},
+    "ghcr.io/devcontainers/features/node:1": {}
   },
-  "postCreateCommand": "curl -sSL https://dioxus.dev/install.sh | bash",
+  "mounts": ["source=pnpm-store,target=/pnpm-store,type=volume"],
+  "postCreateCommand": "sudo chown -R $(whoami) /pnpm-store && pnpm config set store-dir /pnpm-store",
   "remoteUser": "vscode",
+  "forwardPorts": [5173],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -14,8 +17,8 @@
         "bradlc.vscode-tailwindcss",
         "ms-azuretools.vscode-containers",
         "kinghat.copypasta",
-        "DioxusLabs.dioxus",
-        "GitHub.vscode-github-actions"
+        "GitHub.vscode-github-actions",
+        "tauri-apps.tauri-vscode"
       ]
     }
   }

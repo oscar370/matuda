@@ -7,12 +7,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
   wget \
   file \
-  libwebkit2gtk-4.1-dev \
   libxdo-dev \
   libssl-dev \
   libayatana-appindicator3-dev \
   librsvg2-dev \
-  unzip \
+  libsoup-3.0-dev \
+  libwebkit2gtk-4.1-dev \
+  libjavascriptcoregtk-4.1-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

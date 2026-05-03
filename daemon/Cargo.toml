@@ -7,5 +7,5 @@ edition = "2024"
 clap = { version = "4.5.60", features = ["derive"] }
 gio = "0.22.5"
 infer = "0.19.0"
-serde = { version = "1.0.228", features = ["derive"] }
 toml = "1.0.6"
+shared = { path = "../shared" }
