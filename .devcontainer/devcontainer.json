@@ -3,22 +3,20 @@
   "build": { "dockerfile": "Dockerfile" },
   "features": {
     "ghcr.io/devcontainers/features/rust:1": {},
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:2": {}
   },
   "mounts": ["source=pnpm-store,target=/pnpm-store,type=volume"],
   "postCreateCommand": "sudo chown -R $(whoami) /pnpm-store && pnpm config set store-dir /pnpm-store",
   "remoteUser": "vscode",
-  "forwardPorts": [5173],
   "customizations": {
     "vscode": {
       "extensions": [
-        "esbenp.prettier-vscode",
         "streetsidesoftware.code-spell-checker",
-        "bradlc.vscode-tailwindcss",
         "ms-azuretools.vscode-containers",
         "kinghat.copypasta",
         "GitHub.vscode-github-actions",
-        "tauri-apps.tauri-vscode"
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
       ]
     }
   }

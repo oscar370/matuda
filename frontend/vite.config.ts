@@ -1,8 +1,19 @@
-import { solidStart } from "@solidjs/start/config";
-import { nitroV2Plugin as nitro } from "@solidjs/vite-plugin-nitro-2";
-import tailwindcss from "@tailwindcss/vite";
+import path from "path";
+import devtools from "solid-devtools/vite";
 import { defineConfig } from "vite";
+import solidPlugin from "vite-plugin-solid";
 
 export default defineConfig({
-  plugins: [solidStart(), tailwindcss(), nitro()],
+  plugins: [devtools(), solidPlugin()],
+  server: {
+    port: 3000,
+  },
+  build: {
+    target: "esnext",
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
 });

@@ -1,6 +1,7 @@
 mod app_manager;
 mod commands;
 mod errors;
+mod models;
 
 use app_manager::AppManager;
 use specta_typescript::Typescript;
@@ -15,13 +16,20 @@ pub fn run() {
         commands::is_init_app,
         commands::init_app,
         commands::start_service,
-        commands::clean_service
+        commands::stop_service,
+        commands::restart_service,
+        commands::clean_app,
+        commands::save_new_config,
+        commands::get_config,
+        commands::check_updates,
+        commands::install_daemon,
+        commands::install_matugen
     ]);
 
     #[cfg(debug_assertions)]
     {
         builder
-            .export(Typescript::default(), "../lib/bindings.ts")
+            .export(Typescript::default(), "../src/lib/bindings.ts")
             .expect("Failed to export TypeScript bindings");
     }
 

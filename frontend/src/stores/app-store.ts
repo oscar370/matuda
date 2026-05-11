@@ -1,5 +1,15 @@
+import { AppVersions } from "@/lib/bindings";
+import { makePersisted } from "@solid-primitives/storage";
 import { createStore } from "solid-js/store";
 
-export const [appStore, setAppStore] = createStore({
-  isAppInit: false,
-});
+type AppState = AppVersions;
+
+const INITIAL_STATE: AppState = {
+  daemon: "",
+  matugen: "",
+};
+
+export const [appStore, setAppStore] = makePersisted(
+  createStore(INITIAL_STATE),
+  { name: "app_store" },
+);
