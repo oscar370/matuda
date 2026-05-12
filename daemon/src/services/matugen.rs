@@ -22,7 +22,7 @@ pub fn generate_colors(
         .arg(&args.config_path)
         .arg("--fallback-color")
         .arg(&config.app.fallback_color.replace('#', ""))
-        .arg("prefer")
+        .arg("--prefer")
         .arg(&config.app.prefer)
         .status()?;
 
