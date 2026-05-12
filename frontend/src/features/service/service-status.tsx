@@ -1,20 +1,20 @@
 import { ErrorContent } from "@/components/error-content";
-import { Spinner } from "@/components/spinner";
-import { createResource, ErrorBoundary, Suspense } from "solid-js";
+import { createResource, ErrorBoundary, onCleanup, onMount } from "solid-js";
 import { getServiceStatus } from "./service.service";
 
 export function ServiceStatus() {
   const [serviceStatus, { refetch }] = createResource(() => getServiceStatus());
 
+  onMount(() => {
+    window.addEventListener("service-updated", refetch);
+    onCleanup(() => window.removeEventListener("service-updated", refetch));
+  });
+
   return (
     <section class="space-y-2">
       <div class="mockup-code w-full" aria-label="service status">
         <ErrorBoundary fallback={<ErrorContent />}>
-          <Suspense fallback={<Spinner />}>
-            <code class="flex items-center justify-center px-4">
-              {serviceStatus()}
-            </code>
-          </Suspense>
+          <pre class="px-2 whitespace-pre-wrap">{serviceStatus()}</pre>
         </ErrorBoundary>
       </div>
 

@@ -1,9 +1,6 @@
 name: Release-Daemon-Test
 
 on:
-  push:
-    branches:
-      - migration
   workflow_dispatch:
 
 permissions:

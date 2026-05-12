@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "rust-lang.rust-analyzer",
+    "bradlc.vscode-tailwindcss",
+    "tauri-apps.tauri-vscode",
+    "esbenp.prettier-vscode",
+    "tamasfe.even-better-toml",
+    "dbaeumer.vscode-eslint",
+    // "mkhl.direnv", if you have nix
+    "streetsidesoftware.code-spell-checker"
+  ]
+}

@@ -15,6 +15,7 @@ pub struct AppConfig {
     pub mode: String,
     pub resize_filter: String,
     pub fallback_color: String,
+    pub prefer: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, Type)]
@@ -33,6 +34,7 @@ impl Default for AppConfig {
             mode: "dark".to_string(),
             resize_filter: "nearest".to_string(),
             fallback_color: "#1e1e2e".to_string(),
+            prefer: "closest-to-fallback".to_string(),
         }
     }
 }
@@ -40,7 +42,7 @@ impl Default for AppConfig {
 impl Default for TemplateConfig {
     fn default() -> Self {
         Self {
-            input_path: "~/.config/example/input.css".to_string(),
+            input_path: "~/.config/templates/input.css".to_string(),
             output_path: None,
             pre_hook: String::new(),
             post_hook: String::new(),

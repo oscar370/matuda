@@ -10,6 +10,7 @@ export function ServiceActions() {
     try {
       setIsPending(true);
       await operation();
+      window.dispatchEvent(new Event("service-updated"));
       toast.success("The action has been completed");
     } catch (error) {
       console.log(error);

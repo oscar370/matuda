@@ -21,7 +21,9 @@ pub fn generate_colors(
         .arg("-c")
         .arg(&args.config_path)
         .arg("--fallback-color")
-        .arg(config.app.fallback_color.replace('#', ""))
+        .arg(&config.app.fallback_color.replace('#', ""))
+        .arg("prefer")
+        .arg(&config.app.prefer)
         .status()?;
 
     if !output.success() {

@@ -3,11 +3,10 @@ import { ComponentProps, splitProps } from "solid-js";
 type SelectProps = ComponentProps<"select"> & {
   name: string;
   label: string;
-  error: string;
 };
 
 export function Select(props: SelectProps) {
-  const [rest, inputProps] = splitProps(props, ["value", "label", "error"]);
+  const [rest, inputProps] = splitProps(props, ["value", "label"]);
 
   return (
     <label>
@@ -17,13 +16,9 @@ export function Select(props: SelectProps) {
 
       <select
         {...inputProps}
-        aria-invalid={!!rest.error}
-        aria-errormessage={rest.error}
         value={rest.value ?? ""}
         class="select validator w-full"
       />
-
-      {rest.error && <span class="validator-hint">{props.error}</span>}
     </label>
   );
 }

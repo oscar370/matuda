@@ -30,6 +30,7 @@ export type AppConfig = {
 	mode: string,
 	resize_filter: string,
 	fallback_color: string,
+	prefer: string,
 };
 
 export type AppManagerError = { type: "Io"; message: string } | { type: "CommandFailed"; message: string } | { type: "ResourceNotFound"; message: string } | { type: "Serialization"; message: string } | { type: "Deserialization"; message: string } | { type: "Env"; message: string } | { type: "Network"; message: string } | { type: "DuplicateTemplateKey"; message: string };

@@ -1,30 +1,33 @@
 import { TextInput } from "@/components/text-input";
 import { ConfigTomlDto, TemplateItemDto } from "@/lib/bindings";
-import {
-  createForm,
-  FormStore,
-  insert,
-  required,
-  reset,
-  SubmitHandler,
-} from "@modular-forms/solid";
+import { createStore, SetStoreFunction } from "solid-js/store";
+import { Portal } from "solid-js/web";
 
 type TemplateModalProps = {
-  form: FormStore<ConfigTomlDto, undefined>;
+  store: ConfigTomlDto;
+  setStore: SetStoreFunction<ConfigTomlDto>;
+};
+
+const defaultTemplate: TemplateItemDto = {
+  key: "",
+  input_path: "",
+  output_path: null,
+  pre_hook: "",
+  post_hook: "",
 };
 
 export function TemplateModal(props: TemplateModalProps) {
-  const [templateForm, { Form, Field }] = createForm<TemplateItemDto>();
   let modalRef: HTMLDialogElement | undefined;
 
-  const handleSubmit: SubmitHandler<TemplateItemDto> = (values) => {
-    if (templateForm.invalid) return;
+  const [draft, setDraft] = createStore<TemplateItemDto>({
+    ...defaultTemplate,
+  });
 
-    insert(props.form, "templates", {
-      value: values,
-    });
-
-    reset(templateForm);
+  const handleSubmit = (e: Event) => {
+    e.preventDefault();
+    if (!draft.key || !draft.input_path) return;
+    props.setStore("templates", (templates) => [...templates, { ...draft }]);
+    setDraft({ ...defaultTemplate });
     modalRef?.close();
   };
 
@@ -34,91 +37,70 @@ export function TemplateModal(props: TemplateModalProps) {
         Add template
       </button>
 
-      <dialog ref={(e) => (modalRef = e)} class="modal">
-        <div class="modal-box">
-          <h2 class="text-lg font-bold">New template</h2>
+      <Portal>
+        <dialog ref={(e) => (modalRef = e)} class="modal">
+          <div class="modal-box">
+            <h2 class="text-lg font-bold">New template</h2>
 
-          <Form class="py-4" onSubmit={handleSubmit}>
-            <fieldset class="fieldset">
-              <Field name="key" validate={[required("Required field")]}>
-                {(field, props) => (
-                  <TextInput
-                    {...props}
-                    label="Name"
-                    name={field.name}
-                    value={field.value}
-                    error={field.error}
-                    required
-                  />
-                )}
-              </Field>
-              <Field name="input_path" validate={[required("Required field")]}>
-                {(field, props) => (
-                  <TextInput
-                    {...props}
-                    label="Input path"
-                    name={field.name}
-                    value={field.value}
-                    error={field.error}
-                    required
-                  />
-                )}
-              </Field>
-              <Field name="output_path">
-                {(field, props) => (
-                  <TextInput
-                    {...props}
-                    label="Output path"
-                    name={field.name}
-                    value={field.value ?? ""}
-                    error={field.error}
-                  />
-                )}
-              </Field>
-              <Field name="pre_hook">
-                {(field, props) => (
-                  <TextInput
-                    {...props}
-                    label="Pre hook"
-                    name={field.name}
-                    value={field.value}
-                    error={field.error}
-                  />
-                )}
-              </Field>
-              <Field name="post_hook">
-                {(field, props) => (
-                  <TextInput
-                    {...props}
-                    label="Post hook"
-                    name={field.name}
-                    value={field.value}
-                    error={field.error}
-                  />
-                )}
-              </Field>
-            </fieldset>
+            <form class="py-4" onSubmit={handleSubmit}>
+              <fieldset class="fieldset">
+                <TextInput
+                  label="Name"
+                  name="key"
+                  value={draft.key}
+                  onInput={(e) => setDraft("key", e.currentTarget.value)}
+                  required
+                />
+                <TextInput
+                  label="Input path"
+                  name="input_path"
+                  value={draft.input_path}
+                  onInput={(e) => setDraft("input_path", e.currentTarget.value)}
+                  required
+                />
+                <TextInput
+                  label="Output path"
+                  name="output_path"
+                  value={draft.output_path ?? ""}
+                  onInput={(e) =>
+                    setDraft("output_path", e.currentTarget.value || null)
+                  }
+                />
+                <TextInput
+                  label="Pre hook"
+                  name="pre_hook"
+                  value={draft.pre_hook ?? ""}
+                  onInput={(e) => setDraft("pre_hook", e.currentTarget.value)}
+                />
+                <TextInput
+                  label="Post hook"
+                  name="post_hook"
+                  value={draft.post_hook ?? ""}
+                  onInput={(e) => setDraft("post_hook", e.currentTarget.value)}
+                />
+              </fieldset>
 
-            <div class="modal-action">
-              <button class="btn btn-primary" type="submit">
-                Add template
-              </button>
+              <div class="modal-action">
+                <button class="btn btn-primary" type="submit">
+                  Add template
+                </button>
 
-              <button
-                class="btn"
-                type="button"
-                onClick={() => modalRef?.close()}
-              >
-                Close
-              </button>
-            </div>
-          </Form>
-        </div>
+                <button
+                  class="btn"
+                  type="button"
+                  onClick={() => modalRef?.close()}
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
 
-        <form method="dialog" class="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </Portal>
     </>
   );
 }

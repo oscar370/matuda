@@ -31,7 +31,6 @@
     "vite-plugin-solid": "^2.11.12"
   },
   "dependencies": {
-    "@modular-forms/solid": "^0.25.1",
     "@solid-primitives/storage": "^4.3.4",
     "@solidjs/router": "^0.15.4",
     "@tauri-apps/api": "^2.11.0",

@@ -3,6 +3,7 @@ import { commands } from "@/lib/bindings";
 import { unwrap } from "@/lib/utils";
 import { useNavigate } from "@solidjs/router";
 import { createSignal, Show } from "solid-js";
+import { Portal } from "solid-js/web";
 import { toast } from "solid-sonner";
 
 export function CleanApp() {
@@ -32,28 +33,30 @@ export function CleanApp() {
         </Show>
       </button>
 
-      <dialog ref={(e) => (modalRef = e)} class="modal">
-        <div class="modal-box">
-          <h2 class="text-lg font-bold">Clean app?</h2>
-          <p class="py-4">
-            This will remove the service, the binaries, and other configuration
-            files
-          </p>
+      <Portal>
+        <dialog ref={(e) => (modalRef = e)} class="modal">
+          <div class="modal-box">
+            <h2 class="text-lg font-bold">Clean app?</h2>
+            <p class="py-4">
+              This will remove the service, the binaries, and other
+              configuration files
+            </p>
 
-          <div class="modal-action">
-            <button class="btn btn-error" onClick={handleClean}>
-              Clean
-            </button>
-            <button class="btn" onClick={() => modalRef?.close()}>
-              Close
-            </button>
+            <div class="modal-action">
+              <button class="btn btn-error" onClick={handleClean}>
+                Clean
+              </button>
+              <button class="btn" onClick={() => modalRef?.close()}>
+                Close
+              </button>
+            </div>
           </div>
-        </div>
 
-        <form method="dialog" class="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </Portal>
     </>
   );
 }

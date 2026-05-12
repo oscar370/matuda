@@ -1,9 +1,11 @@
 import { ConfigTomlDto } from "@/lib/bindings";
-import { FormStore, remove } from "@modular-forms/solid";
 import { Trash } from "lucide-solid";
+import { SetStoreFunction } from "solid-js/store";
+import { Portal } from "solid-js/web";
 
 type TemplateModalProps = {
-  form: FormStore<ConfigTomlDto, undefined>;
+  store: ConfigTomlDto;
+  setStore: SetStoreFunction<ConfigTomlDto>;
   index: number;
 };
 
@@ -11,7 +13,9 @@ export function TemplateDeleteModal(props: TemplateModalProps) {
   let modalRef: HTMLDialogElement | undefined;
 
   function handleDelete() {
-    remove(props.form, "templates", { at: props.index });
+    props.setStore("templates", (templates) =>
+      templates.filter((_, i) => i !== props.index),
+    );
     modalRef?.close();
   }
 
@@ -27,27 +31,39 @@ export function TemplateDeleteModal(props: TemplateModalProps) {
         <Trash class="size-5" />
       </button>
 
-      <dialog ref={(e) => (modalRef = e)} class="modal">
-        <div class="modal-box">
-          <h2 class="text-lg font-bold">Delete template?</h2>
+      <Portal>
+        <dialog ref={(e) => (modalRef = e)} class="modal">
+          <div class="modal-box">
+            <h2 class="text-lg font-bold">Delete template?</h2>
 
-          <p class="py-4">This action cannot be undone.</p>
+            <p class="py-4">
+              The deletion will not take effect until you save your changes.
+            </p>
 
-          <div class="modal-action">
-            <button class="btn btn-error" type="submit" onClick={handleDelete}>
-              Confirm
-            </button>
+            <div class="modal-action">
+              <button
+                class="btn btn-error"
+                type="button"
+                onClick={handleDelete}
+              >
+                Confirm
+              </button>
 
-            <button class="btn" type="button" onClick={() => modalRef?.close()}>
-              Close
-            </button>
+              <button
+                class="btn"
+                type="button"
+                onClick={() => modalRef?.close()}
+              >
+                Close
+              </button>
+            </div>
           </div>
-        </div>
 
-        <form method="dialog" class="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+      </Portal>
     </>
   );
 }

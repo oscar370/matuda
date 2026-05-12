@@ -13,7 +13,10 @@ export function CheckUpdates() {
       setIsChecking(true);
       const res = await unwrap(commands.checkUpdates());
 
-      if (res.daemon.version !== appStore.daemon) {
+      if (
+        res.daemon.version.includes("Daemon") &&
+        res.daemon.version !== appStore.daemon
+      ) {
         await unwrap(commands.installDaemon(res.daemon.url));
         setAppStore({ daemon: res.daemon.version });
       }

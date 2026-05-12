@@ -17,3 +17,12 @@ export const RESIZE_FILTERS = [
   { value: "gaussian", label: "Gaussian" },
   { value: "lanczos3", label: "Lanczos3" },
 ] as const;
+
+export const GOOD_PREFER_COLORS = [
+  { value: "darkness", label: "Darkness" },
+  { value: "lightness", label: "Lightness" },
+  { value: "saturation", label: "Saturation" },
+  { value: "less-saturation", label: "Less saturation" },
+  { value: "value", label: "Value" },
+  { value: "closest-to-fallback", label: "Closest to fallback" },
+];

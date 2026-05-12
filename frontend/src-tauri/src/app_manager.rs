@@ -118,7 +118,7 @@ impl AppManager {
     pub fn setup_service(&self) -> Result<(), AppManagerError> {
         let mut config = Ini::new();
         let exec_config = format!(
-            "{} --config {} --matugen {}",
+            "{} --config-path {} --matugen-path {}",
             self.daemon_path.display(),
             self.config_path.display(),
             self.matugen_path.display()
@@ -144,7 +144,8 @@ impl AppManager {
     }
 
     pub fn write_config(&self, config: &ConfigToml) -> Result<(), AppManagerError> {
-        let content = toml::to_string(config)?;
+        let mut content = toml::to_string(config)?;
+        content.push_str("\n[config]\nversion_check = false\n");
         fs::write(&self.config_path, content)?;
         Ok(())
     }
