@@ -169,8 +169,9 @@ impl AppManager {
     }
 
     pub async fn check_daemon_update(&self) -> Result<(String, String), AppManagerError> {
-        let api_url = "https://api.github.com/repos/oscar370/matuda/releases/latest";
+        let api_url = "https://api.github.com/repos/oscar370/matuda/releases";
         let response = self.client.get(api_url).send().await?;
+
         if !response.status().is_success() {
             return Err(AppManagerError::Network(format!(
                 "GitHub API error: HTTP {}",
@@ -178,14 +179,18 @@ impl AppManager {
             )));
         }
 
-        let release: GitHubRelease = response.json().await?;
+        let releases: Vec<GitHubRelease> = response.json().await?;
+
+        let release = releases
+            .into_iter()
+            .find(|r| r.tag_name.starts_with("daemon-"))
+            .ok_or_else(|| AppManagerError::ResourceNotFound("No daemon release found".into()))?;
+
         let asset = release
             .assets
             .into_iter()
             .find(|a| a.name == "daemon")
-            .ok_or_else(|| {
-                AppManagerError::ResourceNotFound("Asset 'daemon' not found".to_string())
-            })?;
+            .ok_or_else(|| AppManagerError::ResourceNotFound("Asset 'daemon' not found".into()))?;
 
         Ok((release.tag_name, asset.browser_download_url))
     }
@@ -241,9 +246,21 @@ impl AppManager {
             )));
         }
 
+        tokio::process::Command::new("systemctl")
+            .arg("--user")
+            .args(["disable", "--now", self.service_name()])
+            .output()
+            .await?;
+
         let bytes = response.bytes().await?;
         fs::write(&self.daemon_path, bytes)?;
         Self::set_executable(&self.daemon_path)?;
+
+        tokio::process::Command::new("systemctl")
+            .arg("--user")
+            .args(["enable", "--now", self.service_name()])
+            .output()
+            .await?;
 
         Ok(())
     }

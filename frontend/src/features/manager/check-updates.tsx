@@ -14,7 +14,7 @@ export function CheckUpdates() {
       const res = await unwrap(commands.checkUpdates());
 
       if (
-        res.daemon.version.includes("Daemon") &&
+        res.daemon.version.includes("daemon") &&
         res.daemon.version !== appStore.daemon
       ) {
         await unwrap(commands.installDaemon(res.daemon.url));
