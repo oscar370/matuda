@@ -19,7 +19,7 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: install pnpm
         uses: pnpm/action-setup@v6
@@ -68,14 +68,15 @@ jobs:
         working-directory: ./frontend
         run: pnpm install
 
-      - uses: tauri-apps/tauri-action@v0.6
+      - uses: tauri-apps/tauri-action@v0.6.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_BUNDLER_NEW_APPIMAGE_FORMAT: "true"
         with:
           tagName: Matuda-v__VERSION__
           releaseName: "Matuda v__VERSION__"
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false
-          tauriScript: "TAURI_BUNDLER_NEW_APPIMAGE_FORMAT='true' cargo tauri build -v"
+          tauriScript: "cargo tauri"
           args: ${{ matrix.args }}
