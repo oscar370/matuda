@@ -1,4 +1,4 @@
-name: Release-Daemon-Test
+name: Release Daemon Test
 
 on:
   workflow_dispatch:

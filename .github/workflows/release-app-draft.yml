@@ -1,4 +1,4 @@
-name: "Release app"
+name: "Release App"
 
 on:
   push:
