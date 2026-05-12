@@ -1,0 +1,46 @@
+{
+  "name": "matuda",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "format": "prettier . --write"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@tauri-apps/cli": "^2.11.1",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.1",
+    "@types/node": "^25.6.2",
+    "daisyui": "^5.5.19",
+    "eslint": "^10.3.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-solid": "^0.14.5",
+    "globals": "^17.6.0",
+    "postcss": "^8.5.14",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "solid-devtools": "^0.34.5",
+    "tailwindcss": "^4.3.0",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^7.3.3",
+    "vite-plugin-solid": "^2.11.12"
+  },
+  "dependencies": {
+    "@solid-primitives/storage": "^4.3.4",
+    "@solidjs/router": "^0.15.4",
+    "@tauri-apps/api": "^2.11.0",
+    "lucide-solid": "^1.14.0",
+    "solid-js": "^1.9.12",
+    "solid-sonner": "^0.3.1"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
+  }
+}

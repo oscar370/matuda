@@ -1,0 +1,29 @@
+name: Release-Daemon-Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+          libglib2.0-dev \
+          pkg-config
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build Daemon
+        run: scripts/setup-daemon.sh
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: linux-builds
+          archive: false
+          path: dist/daemon

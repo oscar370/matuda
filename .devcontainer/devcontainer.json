@@ -1,22 +1,23 @@
 {
-  "name": "Matuda",
-
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-
+  "name": "Debian",
+  "build": { "dockerfile": "Dockerfile" },
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    },
-    "ghcr.io/devcontainers/features/rust:1": {}
+    "ghcr.io/devcontainers/features/rust:1": {},
+    "ghcr.io/devcontainers/features/node:2": {}
   },
-
-  "runArgs": ["--volume=/tmp/.X11-unix:/tmp/.X11-unix"],
-
-  "containerEnv": {
-    "DISPLAY": "${localEnv:DISPLAY}"
-  },
-
-  "remoteUser": "vscode"
+  "mounts": ["source=pnpm-store,target=/pnpm-store,type=volume"],
+  "postCreateCommand": "sudo chown -R $(whoami) /pnpm-store && pnpm config set store-dir /pnpm-store",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-containers",
+        "kinghat.copypasta",
+        "GitHub.vscode-github-actions",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
 }

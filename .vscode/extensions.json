@@ -1,9 +1,12 @@
 {
   "recommendations": [
-    "tauri-apps.tauri-vscode",
     "rust-lang.rust-analyzer",
-    "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
-    "ms-vscode-remote.remote-containers"
+    "tauri-apps.tauri-vscode",
+    "esbenp.prettier-vscode",
+    "tamasfe.even-better-toml",
+    "dbaeumer.vscode-eslint",
+    // "mkhl.direnv", if you have nix
+    "streetsidesoftware.code-spell-checker"
   ]
 }
