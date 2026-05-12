@@ -48,7 +48,7 @@
             fetcherVersion = 3;
             inherit version;
             src = ./frontend;
-            hash = "sha256-HzyrWmJrN6x6YWvLqeH6etKU3PocJZiyho+26gSWySs=";
+            hash = "sha256-qWjkG99NvHIjjzeKD6YgcHGP2eCEevsuVUV4ra/WQhY=";
           };
 
           nativeBuildInputs =
