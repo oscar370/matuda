@@ -31,6 +31,7 @@ jobs:
         with:
           node-version: lts/*
           cache: "pnpm"
+          cache-dependency-path: "frontend/pnpm-lock.yaml"
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -64,6 +65,7 @@ jobs:
             unzip
 
       - name: install frontend dependencies
+        working-directory: ./frontend
         run: pnpm install
 
       - uses: tauri-apps/tauri-action@v0
