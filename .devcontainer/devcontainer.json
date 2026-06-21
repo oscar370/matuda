@@ -3,7 +3,7 @@
   "build": { "dockerfile": "Dockerfile" },
   "features": {
     "ghcr.io/devcontainers/features/rust:1": {},
-    "ghcr.io/devcontainers/features/node:2": {}
+    "ghcr.io/devcontainers/features/node:": {}
   },
   "mounts": ["source=pnpm-store,target=/pnpm-store,type=volume"],
   "postCreateCommand": "sudo chown -R $(whoami) /pnpm-store && pnpm config set store-dir /pnpm-store",
