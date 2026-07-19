@@ -16,7 +16,7 @@
     "@tauri-apps/cli": "^2.11.2",
     "@types/eslint-plugin-jsx-a11y": "^6.10.1",
     "@types/node": "^25.9.1",
-    "daisyui": "^5.5.19",
+    "daisyui": "^5.6.18",
     "eslint": "^10.4.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-solid": "^0.14.5",
